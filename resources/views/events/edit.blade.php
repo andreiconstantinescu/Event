@@ -54,10 +54,10 @@
     <p>
     <input type="number" name="price" min="0" id="price" value= "{{ $event->price}}" required>
     <select name="currency">    
-      <option style="color:red;" value="RON">RON</option>
-      <option value="USD">USD</option>
-      <option value="EUR">EUR</option>
-      <option value="GBP">GBP</option>
+      <option value="RON" {{ $event->currency === "RON" ? 'selected' : '' }}>RON</option>
+      <option value="USD" {{ $event->currency === "USD" ? 'selected' : '' }}>USD</option>
+      <option value="EUR" {{ $event->currency === "EUR" ? 'selected' : '' }}>EUR</option>
+      <option value="GBP" {{ $event->currency === "GBP" ? 'selected' : '' }}>GBP</option>
         </select>
     </p>
 
@@ -65,13 +65,13 @@
     <label for="category_id">Category</label>
     <select name="category_id" > 
     @foreach($categories as $category)   
-      <option style="color:red;" value="{{$category->id}}">{{$category->name}}</option>
+      <option style="color:red;" value="{{$category->id}}" {{ $event->category_id === $category->id ? 'selected' : '' }}>{{$category->name}}</option>
      @endforeach
         </select>
     </p>
 
-    <p><input type="file" name="image" id="image" value="{{ $event->image }}"></p>
-    
+    <p><input type="file" name="image" id="image"></p>
+    <p><img src="{{ $event->image }}" /></p>
   <p>
     <label for="description">Add a description of the event</label></p>
 

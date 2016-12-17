@@ -37,8 +37,8 @@
                                     <p><b>Price:</b>{{$event->price}} {{$event->currency}}</p>
                                     <p class="para2">{{$event->description}}</p> 
 
-                                    @if(Auth::user()->id != $event->creator_id)
-                                     <input type="submit" method="POST" action="{{ route('events.show', $event->id) }}" class="action-button shadow animate yellow" value="Are you going?">
+                                    @if (Auth::user()->id != $event->creator_id)
+                                        <button id="yougoing" class="action-button shadow animate"></button>
                                      @endif 
                                     
                                     </div>
@@ -118,6 +118,7 @@
                         </div>
                          </div>
         </div>
+
         <!----start-footer--->
         <div class="footer">
             <p>Design by <a href="http://w3layouts.com/">W3layouts</a></p>
@@ -125,5 +126,27 @@
         <!----//End-footer--->
         <!---//End-wrap---->
 
-    
+        <script>
+            $(document).ready(function() {
+                var yougoing = $('#yougoing')
+
+                var toggle = function(attending) {
+                    yougoing.text(attending ? 'Not Going' : 'Going')
+                    yougoing.addClass(attending ? 'red' : 'yellow')
+                    yougoing.removeClass(attending ? 'yellow' : 'red')
+                }
+
+                $.get('/events/{{ $event->id }}/status/', function(data) {
+                    var result = JSON.parse(data);
+                    toggle(result.attending)
+                })
+
+                yougoing.click(function() {
+                    $.get('/events/{{ $event->id }}/toggle', function(data) {
+                        var result = JSON.parse(data);
+                        toggle(result.attending)
+                    })
+                });
+            });
+        </script>
 @endsection

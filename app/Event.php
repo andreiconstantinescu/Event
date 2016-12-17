@@ -24,4 +24,17 @@ class Event extends Model
 
     	return $this->belongsTo('App\User');
     }
+
+    public function attending($user_id) {
+        $event = $this;
+        $found = false;
+
+        foreach ($event->users as $value) {
+            if($value->id === $user_id) {
+                $found = true;
+            }
+        }
+
+        return $found;
+    }
 }

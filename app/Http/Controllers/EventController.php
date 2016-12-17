@@ -30,7 +30,7 @@ class EventController extends Controller
     public function index()
     {
         // create a variable and store all the events in it from the db
-        $events = Event::orderBy('startdate', 'asc')->paginate(20);
+        $events = Event::orderBy('startdate', 'asc')->paginate(2);
 
         //return a view and pass in the above variable
         return view('events.index')->withEvents($events);
@@ -86,7 +86,6 @@ class EventController extends Controller
         $event->category_id = $request->category_id;
         $event->description = $request->description;
 
-
         //upload image
         if ($request->hasFile('image')) {
           $image = $request->file('image');
@@ -107,22 +106,29 @@ class EventController extends Controller
         //redirect to another page
     }
 
-    /* *
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $event = Event::find($id);
-       // $user = Auth::user()->id;
-
-      //  $event->users()->attach($user);
-
-
-
         return view('events.show')->withEvent($event);
+    }
+
+
+    public function isAttending($id) {
+        return json_encode(array("status" => "success", "attending" => Event::find($id)->attending(Auth::user()->id)));
+    }
+
+    public function toggleAttend($id) {
+        $event = Event::find($id);
+
+        $attending = $event->attending(Auth::user()->id);
+        if (!$attending) {
+            $event->users()->attach(Auth::user()->id);
+        }
+        else {
+            $event->users()->detach(Auth::user()->id);
+        }
+
+        return json_encode(array("status" => "success", "attending" => !$attending));
     }
 
     /**

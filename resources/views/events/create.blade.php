@@ -6,8 +6,8 @@
   
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 
-   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete"
-         async defer></script> -->
+   {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXEWjOzvyLBozOb4lm7oOrI4eH0YmZOXg&libraries=places&callback=initAutocomplete"
+         async defer></script> --}}
    
    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
    <script src="{{ URL::asset('js/eventform.js') }}"></script>
@@ -26,6 +26,8 @@
        * element that contains the map. */
       #map {
         height: 100%;
+        min-height: 200px;
+      }
      .controls {
         margin-top: 10px;
         border: 1px solid transparent;
@@ -35,6 +37,7 @@
         height: 32px;
         outline: none;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+
       }
 
       #pac-input {
@@ -46,6 +49,7 @@
         padding: 0 11px 0 13px;
         text-overflow: ellipsis;
         width: 300px;
+        color: #000;
       }
 
       #pac-input:focus {

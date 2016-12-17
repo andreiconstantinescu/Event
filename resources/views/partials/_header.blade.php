@@ -10,6 +10,7 @@
 					<nav id="nav">
 							<form>
  					 		<input type="text" name="search" placeholder="Search..">
+ 					 		
 							</form>
 
 					@if(Auth::check())

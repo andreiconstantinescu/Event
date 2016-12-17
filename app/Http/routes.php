@@ -37,6 +37,8 @@ Route::resource('events', 'EventController');
 
 Route::post('events/', ['uses' => 'EventController@store', 'as' => 'events.store']);
 Route::post('events/{id}', ['uses' => 'EventController@show', 'as' => 'events.show']);
+Route::get('events/{id}/toggle', 'EventController@toggleAttend');
+Route::get('events/{id}/status', 'EventController@isAttending');
 
 //Auth routes
 Route::auth();
