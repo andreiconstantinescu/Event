@@ -12,6 +12,8 @@
         @yield('indexscripts')
 
         @yield('authscripts')
+
+        @yield('profilescripts')
   
         
 		@include('partials._header')

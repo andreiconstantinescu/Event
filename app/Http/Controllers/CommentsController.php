@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Comment;
-use App\User;
 use App\Event;
+use App\User;
 use Auth;
+use Illuminate\Http\Request;
 use Session;
 
 class CommentsController extends Controller
@@ -47,25 +45,18 @@ class CommentsController extends Controller
      */
     public function store(Request $request, $event_id)
     {
-        $this->validate('$request', array(
-            'comment' => 'required|max:2000'
-          //  'username'=> 'required|exists:users,name'
-            ));
+        $this->validate($request, array(
+            'comment' => 'required|max:2000',
+            //  'username'=> 'required|exists:users,name'
+        ));
 
-        $event = Event::find($event_id);
-
+        $event    = Event::find($event_id);
         $username = Auth::user()->name;
 
-        $comment = new Comment();
-
-        $comment->comment = $request->comment;
-       // $comment->username = $username; 
-
-        $comment->user()->associate(Auth::user());
-        $comment->event()->associate($event);
-      //  $comment->name = $username;
-
-
+        $comment           = new Comment();
+        $comment->comment  = $request->comment;
+        $comment->username = $username;
+        $comment->event_id = $event_id;
         $comment->save();
 
         Session::flash('success', 'Your comment was posted!');

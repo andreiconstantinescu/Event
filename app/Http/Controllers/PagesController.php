@@ -71,6 +71,13 @@ class PagesController extends Controller {
         return view('site.single')->withEvent($event);
     
     }
+
+    public function getProfile(){
+        $user = Auth::user();
+        return view('pages.profile')->with(['user' => $user]);
+
+     //   return view('pages/profile');
+    }
     
     
 }

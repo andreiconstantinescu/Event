@@ -63,22 +63,26 @@
                                  <div class="clear"> </div>
                             </div>
                             <!--start-comments-section-->
-                            <div class="comment-section">
+                <div class="comment-section">
                 <div class="grids_of_2">
                     <h2>Comments</h2>
+
+                    @foreach ($event->comments as $comment)
                     <div class="grid1_of_2">
                         <div class="grid_img">
                             <a href=""><img src="/images/pic10.jpg" alt=""></a>
                         </div>
                         <div class="grid_text">
-                            <h4 class="style1 list"><a href="#">Uku Mason</a></h4>
-                            <h3 class="style">march 2, 2013 - 12.50 AM</h3>
-                            <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="" class="btn1">Click to Reply</a>
+                            <h4 class="style1 list"><a href="#">{{$comment->username}}</a></h4>
+                            <h3 class="style">{{$comment->created_at}}</h3>
+                            <p class="para top"> {{$comment->comment}}</p>
+                            <a href="#comment" class="btn1">Click to Reply</a>
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div class="grid1_of_2 left">
+
+                    @endforeach
+                    <!--<div class="grid1_of_2 left" id="reply">
                         <div class="grid_img">
                             <a href=""><img src="/images/pic10.jpg" alt=""></a>
                         </div>
@@ -88,17 +92,17 @@
                             <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>
                             <a href="" class="btn1">Click to Reply</a>
                         </div>
-                        <div class="clear"></div>
-                    </div>    
+                        <div class="clear"></div> 
+                    </div>    -->
                               @if(Auth::check())               
-                        <div class="artical-commentbox">
+                        <div class="artical-commentbox" id="comment">
                             <h2>Leave a Comment</h2>
                             <div class="table-form">
-                                <form method="post" action="{{ route('comments.store', $event->id) }}" name="comment">
+                                <form method="post" action="{{ route('comments.store', $event->id) }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
                                     <div>
-                                        <label>Your Comment<span>*</span></label>
-                                        <textarea> </textarea>  
+                                        <label>Your Comment</label>
+                                        <textarea name="comment"> </textarea>  
                                     </div>
                                 <input type="submit" value="submit">
                                 </form>

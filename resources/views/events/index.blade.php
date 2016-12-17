@@ -71,11 +71,21 @@
                                 <h3><a href="#">{{$event->title}}</a></h3>
                                 <span><a href="#"><label> </label>Category:{{$event->category->name}}</a></span>
                                 <p>Location: {{$event->location}}
-                                <br>Dates: {{date('M j, Y', strtotime($event->startdate)) }} - {{date('M j, Y', strtotime($event->enddate))}}</p>
+                                <br>Dates: {{date('M j, Y', strtotime($event->startdate)) }} - {{date('M j, Y', strtotime($event->enddate))}}
+                                <br>
+                                @if(Carbon\Carbon::today()->format('Y-m-d') > $event->enddate )
+                                  (Ended)
+                                    @endif
+                                    </p>
                             </div>
                             <div class="post-info-rate-share">
+                                @if( $event->price != 0 )
                                 <p>  Price: {{$event->price}}
                                 <span> </span></p>
+                                @else
+                                  <p>  FREE
+                                <span> </span></p>
+                                @endif
                                 
                                 <div class="clear"> </div>
                             </div>
